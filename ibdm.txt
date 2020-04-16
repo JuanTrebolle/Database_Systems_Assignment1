@@ -1,0 +1,81 @@
+Image(
+  URL,
+  description,
+  is_associated_with)
+PRIMARY KEY(URL)
+FOREIGN KEY(is_associated_with) REFERENCES Movie(title)
+
+
+User(
+  name,
+  username,
+  email,
+  password
+)
+PRIMARY KEY(username)
+
+Post_a_review(
+  rating{PK}
+  description
+  username,
+  title)
+PRIMARY KEY(rating, username, title)
+FOREIGN KEY(username) REFERENCES User(username)
+FOREIGN KEY(title) REFERENCES Movie(title)
+
+Movie(
+  title,
+  production_year,
+  status,
+  average_review,
+  post_a_review
+)
+PRIMARY KEY(title)
+FOREIGN KEY(post_a_review) REFERENCES User(username)
+
+
+has_participated(
+  title,
+  name,
+  actor,
+  director,
+  producer,
+  writer
+)
+PRIMARY KEY(name, title)
+FOREIGN KEY(name) REFERENCE Person(name)
+FOREIGN KEY(title) REFERENCE Movie(title)
+
+
+Person(
+  name,
+  birthday,
+  gender,
+  place_of_birth,
+  biography,
+  n_movies
+  age)
+PRIMARY KEY(name)
+
+
+Person_image(
+  URL,
+  name)
+PRIMARY KEY(URL, name)
+FOREIGN KEY(URL) REFERENCE Image(URL)
+FOREIGN KEY(name) REFERENCE Person(name)
+
+
+Production_companies(
+  name,
+  country)
+PRIMARY KEY(name)
+
+
+Production_companies_movies(
+  name,
+  title
+)
+PRIMARY KEY(name, title)
+FOREIGN KEY(name) REFERENCE Production_companies(name)
+FOREIGN KEY(title) REFERENCE Movie(title)
